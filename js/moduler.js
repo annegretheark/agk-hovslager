@@ -14,3 +14,6 @@ window.AGK_MODULER = {
 
   hovslager: true
 };
+window.modulAktiv = function(navn) {
+    return !!window.AGK_MODULER[navn];
+};
