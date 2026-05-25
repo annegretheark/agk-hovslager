@@ -1,4 +1,3 @@
-```javascript
 console.log("hov-app.js lastet");
 
 let alleHovHester = [];
