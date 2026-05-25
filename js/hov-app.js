@@ -530,18 +530,3 @@ if (
     importerBackup
   );
 }
-```
-
-Nederst i `index.html` skal du også ha:
-
-```html
-<script src="js/hov-app.js?v=704"></script>
-```
-
-Så:
-
-```bash
-git add .
-git commit -m "Fikset iphone tale"
-git push origin dev
-```
