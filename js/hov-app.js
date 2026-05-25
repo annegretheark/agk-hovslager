@@ -1,3 +1,4 @@
+```javascript
 console.log("hov-app.js lastet");
 
 let alleHovHester = [];
@@ -214,43 +215,77 @@ async function startTaleJobb() {
     return;
   }
 
-  const recognition = new SpeechRecognition();
-
-  recognition.lang = "no-NO";
-  recognition.continuous = false;
-  recognition.interimResults = false;
-
   const resultat =
     document.getElementById("taleResultat");
 
-  if (resultat) {
-    resultat.textContent = "Lytter...";
+  try {
+
+    const recognition =
+      new SpeechRecognition();
+
+    recognition.lang = "no-NO";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    if (resultat) {
+      resultat.textContent = "Lytter...";
+    }
+
+    recognition.onstart = () => {
+      console.log("Tale startet");
+    };
+
+    recognition.onresult =
+      async (event) => {
+
+      const tekst =
+        event.results[0][0].transcript;
+
+      if (resultat) {
+        resultat.textContent =
+          "Hørte: " + tekst;
+      }
+
+      await fyllJobbFraTale(tekst);
+    };
+
+    recognition.onerror = (event) => {
+
+      console.error(event.error);
+
+      if (!resultat) {
+        return;
+      }
+
+      if (event.error === "aborted") {
+
+        resultat.textContent =
+          "Tale avbrutt. Trykk igjen.";
+
+        return;
+      }
+
+      resultat.textContent =
+        "Tale feilet: " +
+        event.error;
+    };
+
+    recognition.onend = () => {
+      console.log("Tale avsluttet");
+    };
+
+    recognition.start();
+
+  } catch (e) {
+
+    console.error(e);
+
+    if (resultat) {
+      resultat.textContent =
+        "Feil ved talegjenkjenning.";
+    }
   }
-
-  recognition.start();
-
-  recognition.onresult = async (event) => {
-
-    const tekst =
-      event.results[0][0].transcript;
-
-    if (resultat) {
-      resultat.textContent =
-        "Hørte: " + tekst;
-    }
-
-    await fyllJobbFraTale(tekst);
-  };
-
-  recognition.onerror = (event) => {
-
-    console.error(event.error);
-
-    if (resultat) {
-      resultat.textContent =
-        "Tale feilet: " + event.error;
-    }
-  };
 }
 
 async function fyllJobbFraTale(tekst) {
@@ -470,7 +505,8 @@ function settFeltVerdi(id, verdi) {
 
 window.lagreJobbMedHestSjekk =
   lagreJobbMedHestSjekk;
-  const backupKnapp =
+
+const backupKnapp =
   document.getElementById("backupKnapp");
 
 if (
@@ -495,3 +531,18 @@ if (
     importerBackup
   );
 }
+```
+
+Nederst i `index.html` skal du også ha:
+
+```html
+<script src="js/hov-app.js?v=704"></script>
+```
+
+Så:
+
+```bash
+git add .
+git commit -m "Fikset iphone tale"
+git push origin dev
+```
