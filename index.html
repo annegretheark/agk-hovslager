@@ -127,6 +127,28 @@
 
     <div id="fakturaOversikt"></div>
   </div>
+  <div class="kort">
+
+  <h3>Backup / Restore</h3>
+
+  <button id="backupKnapp" type="button">
+    Ta backup
+  </button>
+
+  <label
+    for="importFil"
+    style="font-weight:bold; display:block; margin-top:14px;">
+
+    Restore fra backupfil
+
+  </label>
+
+  <input
+    id="importFil"
+    type="file"
+    accept=".json">
+
+</div>
 
   <section id="jobbSide" class="kort">
 
@@ -444,7 +466,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script src="js/config.js"></script>
-<script src="moduler.js"></script>
+<script src="js/moduler.js"></script>
+<script src="js/backup.js"></script>
 <script src="js/state.js"></script>
 <script src="js/hov-navigation.js"></script>
 <script src="js/hov-kunder.js"></script>

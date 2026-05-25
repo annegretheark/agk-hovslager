@@ -470,3 +470,28 @@ function settFeltVerdi(id, verdi) {
 
 window.lagreJobbMedHestSjekk =
   lagreJobbMedHestSjekk;
+  const backupKnapp =
+  document.getElementById("backupKnapp");
+
+if (
+  backupKnapp &&
+  typeof backup === "function"
+) {
+  backupKnapp.addEventListener(
+    "click",
+    backup
+  );
+}
+
+const importFil =
+  document.getElementById("importFil");
+
+if (
+  importFil &&
+  typeof importerBackup === "function"
+) {
+  importFil.addEventListener(
+    "change",
+    importerBackup
+  );
+}
